@@ -76,7 +76,9 @@ content: '\2192';
 }
 
 .card__title--is-open:before {
-content: '';
+  display: inline-block;
+  width: 1em;
+  content: '\21D3';
 }
 
 .checklist__task:first-child {
