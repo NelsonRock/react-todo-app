@@ -21,6 +21,15 @@ class Card extends Component {
   }
 
   render(){
+    let sideColor = {
+      position:'absolute',
+      zIndex:-1,
+      top:0,
+      bottom:0,
+      left:7,
+      width:5,
+      backgroundColor:this.props.color
+    } ;
     let cardDetais = this.state.showDetails ?
                                                 <div className="card__details">
                                                   <span dangerouslySetInnerHTML={{__html:marked(this.props.description)}} />
@@ -29,6 +38,7 @@ class Card extends Component {
 
     return(
       <div className="card">
+        <div style={sideColor}></div>
         <div className={this.toggleClass.bind(this)()} onClick={this.showDetails.bind(this)} >{this.props.title}</div>
         {cardDetais}
       </div>
