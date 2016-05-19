@@ -1,4 +1,4 @@
-import React, { Component } from  'react';
+import React, { Component, PropTypes } from  'react';
 
 import List from './List';
 
@@ -18,6 +18,10 @@ class Board extends Component {
       </div>
     );
   }
+}
+
+Board.propTypes = {
+  cards: PropTypes.arrayOf(PropTypes.object)
 }
 
 export default Board;
