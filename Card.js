@@ -11,19 +11,23 @@ class Card extends Component {
 
   showDetails(event){
     event.preventDefault();
-    this.setState({showDetails: !this.state.showDetails})
+    this.setState({showDetails: !this.state.showDetails});
+  }
+
+  toggleClass(){
+    return !this.state.showDetails ? "card__title" : "card__title--is-open";
   }
 
   render(){
     let cardDetais = this.state.showDetails ?
-    <div className="card__details">
-      {this.props.description}
-      <CheckList cardId={this.props.id} tasks={this.props.tasks} />
-    </div> : '';
+                                                <div className="card__details">
+                                                  {this.props.description}
+                                                  <CheckList cardId={this.props.id} tasks={this.props.tasks} />
+                                                </div> : '';
 
     return(
       <div className="card">
-        <div className="card__title" onClick={this.showDetails.bind(this)} >{this.props.title}</div>
+        <div className={this.toggleClass.bind(this)()} onClick={this.showDetails.bind(this)} >{this.props.title}</div>
         {cardDetais}
       </div>
     );

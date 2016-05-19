@@ -76,8 +76,6 @@ content: '\2192';
 }
 
 .card__title--is-open:before {
-  display: inline-block;
-  width: 1em;
   content: '\21D3';
 }
 
