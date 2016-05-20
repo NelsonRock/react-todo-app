@@ -1,1 +1,4 @@
-Important it's not finished yet!  React App with Webpack, you will find three types of App, the master branch is a React - Todo - App that will fetch data from an Api with Flux, the second one is a React - Contact - App where i explore Stateful and  Pure Components, and the last app is a React - AirCheap - App with a Api as well
+Important it's not finished yet!  
+<h1>React App with Webpack</h1>
+
+You will find the master branch is a React - Todo - App that will fetch data from an Api and we'll use Flux as well.
