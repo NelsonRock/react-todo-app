@@ -1,6 +1,12 @@
 import React, { Component,  PropTypes } from 'react';
 
 class CheckList extends Component {
+  checkInputKeyPress(evt){
+    if(evt.key === "Enter" || evt.key === 13){
+      this.props.taskCallbacks.add(this.props.cardId, evt.target.value);
+      evt.target.value = '';
+    }
+  }
   render(){
     let tasks = this.props.tasks.map((task, taskIndex) => (
       <li key={task.id} className="checklist__task">
@@ -12,7 +18,7 @@ class CheckList extends Component {
     return(
       <div className="checklist">
         <ul>{tasks}</ul>
-        <input type="text" className="checklist--add-task" placeholder="Add a task and hit enter" />
+        <input type="text" className="checklist--add-task" onKeyPress={ this.checkInputKeyPress.bind(this) } placeholder="Add a task and hit enter" />
       </div>
     );
   }
@@ -20,7 +26,8 @@ class CheckList extends Component {
 
 CheckList.propTypes = {
   cardId: PropTypes.number,
-  tasks: PropTypes.arrayOf(PropTypes.object)
+  tasks: PropTypes.arrayOf(PropTypes.object),
+  taskCallbacks: PropTypes.object,
 }
 
 export default CheckList;
