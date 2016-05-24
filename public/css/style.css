@@ -88,7 +88,7 @@ border-top: dashed 1px #ddd;
 .checklist__task--remove:after{
 display: inline-block;
 color: #d66;
-content: "+";
+content: "x";
 }
 
 .checklist--add-task {
