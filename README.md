@@ -4,6 +4,7 @@
 node 5
 git clone
 npm install babel babel-preset-es5015 babel-preset-react babel-polyfill babel-loader -g
+npm install whatwg-fetch
 npm install
 npm start
 ```
