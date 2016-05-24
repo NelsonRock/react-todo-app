@@ -51,6 +51,15 @@ class AppContainer extends Component {
       cards:[],
     }
   }
+  addTask(carId, taskName){
+
+  }
+  deleteTask(carId, taskId, taskIndex){
+
+  }
+  toggleTask(carId, taskId, taskIndex){
+
+  }
   componentDidMount(){
     fetch(API_URL + 'cards', {headers: API_HEADERS})
     .then((response) => response.json())
@@ -63,7 +72,12 @@ class AppContainer extends Component {
   }
   render(){
     return(
-      <Board cards={this.state.cards} />
+      <Board cards={this.state.cards}
+              taskCallbacks={{
+                            toggle: this.toggleTask.bind(this),
+                            delete: this.deleteTask.bind(this),
+                            add: this.addTask.bind(this)
+                          }}/>
     );
   }
 }
