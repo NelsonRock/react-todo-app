@@ -5,6 +5,7 @@ node 5
 git clone
 npm install babel babel-preset-es5015 babel-preset-react babel-polyfill babel-loader -g
 npm install
+npm start
 ```
 
   >**Important it's not ready  yet!**  
