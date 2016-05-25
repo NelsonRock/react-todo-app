@@ -15,6 +15,12 @@ module.exports = {
     colors: true
   },
   module: {
+    preLoaders: [
+      {
+        test: /\.jsx?$/,
+        loaders: ['eslint']
+      }
+    ],
     loaders: [
       {
         test: /\.js$/,

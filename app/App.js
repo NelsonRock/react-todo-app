@@ -1,4 +1,4 @@
-import React,  { Component, PropTypes } from 'react';
+import React,  { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Board from './Board';
 import 'whatwg-fetch';
@@ -48,7 +48,7 @@ class AppContainer extends Component {
   constructor() {
     super();
     this.state= {
-      cards:[],
+      cards:[]
     }
   }
   addTask(carId, taskName){
@@ -76,7 +76,7 @@ class AppContainer extends Component {
               taskCallbacks={{
                             toggle: this.toggleTask.bind(this),
                             delete: this.deleteTask.bind(this),
-                            add: this.addTask.bind(this)
+                            add: this.addTask.bind(this),
                           }}/>
     );
   }
