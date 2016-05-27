@@ -27,7 +27,8 @@ npm start // start script start in package.json
   >**Important it's not ready  yet!**  
 You will find the master branch is a React - Todo - App that will fetch data from an Api http://kanbanapi.pro-react.com/  and we'll use **Flux as well**.
 
-1.  Manipulating taskCallbacks: toggleTask, deleteTask, addTas// ej: <Card key={card.id} id={card.id} />
+1.  Manipulating taskCallbacks: toggleTask, deleteTask, addTask
+    * Be carefull with Card.js Component // ej: <Card key={card.id} id={card.id} />
 ```
 npm install --save react-addons-update
 npm install --save babel-polyfill //used for features in es6
