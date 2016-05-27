@@ -2,17 +2,20 @@ import React, { Component,  PropTypes } from 'react';
 
 class CheckList extends Component {
   checkInputKeyPress(evt){
-    if(evt.key === "Enter" || evt.key === 13){
+    if(evt.key === 'Enter' || evt.key === 13){
       this.props.taskCallbacks.add(this.props.cardId, evt.target.value);
       evt.target.value = '';
     }
   }
   render(){
+    let id = this.props.cardId;
+    console.log("From checklist: " + id);
+
     let tasks = this.props.tasks.map((task, taskIndex) => (
       <li key={task.id} className="checklist__task">
         <input type="checkbox" defaultChecked={task.done} onChange={ this.props.taskCallbacks.toggle.bind(null, this.props.cardId, task.id, taskIndex) } />
         {task.name}
-        &nbsp;<a href="#" className="checklist__task--remove" onClick={ this.props.taskCallbacks.delete.bind(null, this.props.carId, task.id, taskIndex )} />
+        &nbsp;<a href="#" className="checklist__task--remove" onClick={ this.props.taskCallbacks.delete.bind(null, this.props.cardId, task.id, taskIndex )} />
       </li>
     ));
     return(

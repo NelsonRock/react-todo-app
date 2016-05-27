@@ -7,7 +7,7 @@ class Card extends Component {
   constructor(){
     super(...arguments);
     this.state = {
-      showDetails: false,
+      showDetails: false
     }
   }
 
@@ -29,11 +29,15 @@ class Card extends Component {
       left:7,
       width:5,
       backgroundColor:this.props.color
-    } ;
+    };
+    console.log("Card.js" + this.props.id );
     let cardDetais = this.state.showDetails ?
                                                 <div className="card__details">
                                                   <span dangerouslySetInnerHTML={{__html:marked(this.props.description)}} />
-                                                  <CheckList cardId={this.props.id} tasks={this.props.tasks} taskCallbacks={ this.props.taskCallbacks } />
+                                                  <CheckList
+                                                    cardId={this.props.id}
+                                                    tasks={this.props.tasks}
+                                                    taskCallbacks={ this.props.taskCallbacks } />
                                                 </div> : '';
 
     return(

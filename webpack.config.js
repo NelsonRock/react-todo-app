@@ -6,10 +6,11 @@ module.exports = {
   output: {
     path: __dirname + '/public',
     filename: 'bundle.js'
-  },
+   },
   devServer: {
-    contentBase: "./public",
+    contentBase: './public',
     inline: true,
+    // hot:true,
     port: 3000,
     historyApiFallback: true,
     colors: true
