@@ -1,12 +1,19 @@
-require("babel-polyfill");
 
 module.exports = {
   devtool: 'eval-source-map',
-  entry: __dirname + '/app/App.js',
+  entry: ['babel-polyfill',__dirname + '/app/App.js'],
   output: {
     path: __dirname + '/public',
     filename: 'bundle.js'
    },
+    debug: true,
+  //  stats: {
+  //       colors: true,
+  //       reasons: true,
+  //   },
+  //   plugins: [
+  //    new webpack.HotModuleReplacementPlugin()
+  //  ],
   devServer: {
     contentBase: './public',
     inline: true,
@@ -24,11 +31,11 @@ module.exports = {
     ],
     loaders: [
       {
-        test: /\.js$/,
+        test: /\.js|es6$/,
         exclude: /node_modules/,
-        loader: 'babel-loader',
+        loader: ['react-hot','babel'],
         query:{
-          presets: ['es2015', 'react']
+          presets: ['es2015', 'stage-0', 'react']
         }
       }
     ]

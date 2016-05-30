@@ -30,7 +30,6 @@ class Card extends Component {
       width:5,
       backgroundColor:this.props.color
     };
-    console.log("Card.js" + this.props.id );
     let cardDetais = this.state.showDetails ?
                                                 <div className="card__details">
                                                   <span dangerouslySetInnerHTML={{__html:marked(this.props.description)}} />

@@ -8,9 +8,7 @@ class CheckList extends Component {
     }
   }
   render(){
-    let id = this.props.cardId;
-    console.log("From checklist: " + id);
-
+    
     let tasks = this.props.tasks.map((task, taskIndex) => (
       <li key={task.id} className="checklist__task">
         <input type="checkbox" defaultChecked={task.done} onChange={ this.props.taskCallbacks.toggle.bind(null, this.props.cardId, task.id, taskIndex) } />
