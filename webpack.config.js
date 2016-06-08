@@ -33,7 +33,7 @@ module.exports = {
       {
         test: /\.js|es6$/,
         exclude: /node_modules/,
-        loader: ['react-hot','babel'],
+        loader: ['babel-loader'],
         query:{
           presets: ['es2015', 'stage-0', 'react']
         }

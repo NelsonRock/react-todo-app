@@ -1,5 +1,6 @@
 import React,  { Component } from 'react';
 import ReactDOM from 'react-dom';
+import update from 'react-addons-update';
 import Board from './Board';
 import Perf from 'react-addons-perf';
 import 'whatwg-fetch';
@@ -41,11 +42,26 @@ window.Perf = Perf;
 //   },
 // ];
 
-const API_URL = 'http://kanbanapi.pro-react.com/',
+const API_URL = 'http://kanbanapi.pro-react.com',
       API_HEADERS = {
           'Content-Type' : 'application/json',
           Authorization: 'supernany' // if you local server is not needed
         };
+
+function fetchOpcion (method, cardId, taskId, newTask){
+  console.log('Methos:' + method);
+
+  switch (method) {
+    case 'delete':
+      fetch(API_URL +'/cards/' + cardId + '/tasks/'+ taskId , {
+        method: method,
+        headers: API_HEADERS
+      });
+      break;
+    default:
+
+  }
+}
 
 class AppContainer extends Component {
   constructor() {
@@ -58,7 +74,7 @@ class AppContainer extends Component {
 
   }
   deleteTask(cardId, taskId, taskIndex){
-    console.log(cardId + " " + taskId + " " + taskIndex );
+    console.log(cardId + ' ' + taskId + ' ' + taskIndex );
 
     let cardIndex = this.state.cards.findIndex((card)=> card.id === cardId);
 
@@ -67,17 +83,43 @@ class AppContainer extends Component {
                             tasks: { $splice: [[taskIndex, 1 ]]}
                           }
                         });
+    // set the new state of cards
     this.setState({ cards: nextState });
+    fetch(API_URL +'/cards/' + cardId + '/tasks/'+ taskId , {
+      method: 'delete',
+      headers: API_HEADERS
+    });
+    // fetchOpcion('delete', cardId, taskId, null);
 
   }
-  toggleTask(carId, taskId, taskIndex){
+  toggleTask(cardId, taskId, taskIndex){
+    console.log(cardId + ' ' + taskId + ' ' + taskIndex );
+    // Find the index cards's state
+    let cardIndex = this.state.cards.findIndex((card)=> card.id === cardId);
+    // Create new value for done properties
+    let newDoneValue;
+    // with the $apply command you change the value to opposite
+    let nextState = update(this.state.cards, {
+                          [cardIndex]:{
+                          tasks: {
+                              [taskIndex]:{
+                                done:{ $apply: (done, newDoneValue) =>{
+                                    return newDoneValue = !done;
+                                }
+                              }
+                            }
+                          }
+                        }
+                      });
+    // set the new state of cards
+    this.setState({cards:nextState});
 
   }
   componentDidMount(){
     console.log('before fetch:\n' + this.state.cards);
-    fetch(API_URL + 'cards',
+    fetch(API_URL + '/cards',
      {
-       headers: API_HEADERS,
+       headers: API_HEADERS
      })
     .then((response) => response.json())
     .then((responseData) => {
