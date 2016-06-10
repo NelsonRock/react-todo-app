@@ -21,8 +21,7 @@ class CheckList extends Component {
         <ul>{tasks}</ul>
         <input type="text" className="checklist--add-task"
           onKeyPress={ this.checkInputKeyPress.bind(this) }
-          placeholder="Add a task and hit enter"
-          onKeyPress={this.checkInputKeyPress.bind(this)} />
+          placeholder="Add a task and hit enter" />
       </div>
     );
   }

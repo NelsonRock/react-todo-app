@@ -48,20 +48,32 @@ const API_URL = 'http://kanbanapi.pro-react.com',
           Authorization: 'supernany' // if you local server is not needed
         };
 
-function fetchOpcion (method, cardId, taskId, newTask){
-  console.log('Methos:' + method);
-
-  switch (method) {
-    case 'delete':
-      fetch(API_URL +'/cards/' + cardId + '/tasks/'+ taskId , {
-        method: method,
-        headers: API_HEADERS
-      });
-      break;
-    default:
-
-  }
-}
+// function fetchOpcion (method, cardId, taskId, newTask, nextState){
+//   console.log('Methos:' + method);
+//
+//   switch (method) {
+//     case 'delete':
+//       fetch(API_URL +'/cards/' + cardId + '/tasks/'+ taskId , {
+//         method: method,
+//         headers: API_HEADERS
+//       });
+//       break;
+//     case 'post':
+//     fetch(API_URL +'/cards/' + cardId + '/tasks/', {
+//           method: 'post',
+//           headers: API_HEADERS,
+//           body: JSON.stringify(newTask)
+//           })
+//           .then((response)=> response.json())
+//           .then((responseData)=>{
+//             newTask.id = responseData.id
+//             this.setState({cards: nextState})
+//           });
+//       break;
+//     default:
+//
+//   }
+// }
 
 class AppContainer extends Component {
   constructor() {
@@ -70,8 +82,56 @@ class AppContainer extends Component {
       cards:[]
     }
   }
-  addTask(cardId, taskName){
+  fetchOpcion (method, cardId, taskId, newTask, nextState, newDoneValue){
+    let prevState = this.state;
+    console.log('Methos:' + method);
 
+    switch (method) {
+      case 'delete':
+        fetch(API_URL +'/cards/' + cardId + '/tasks/'+ taskId , {
+          method: method,
+          headers: API_HEADERS
+        });
+        break;
+      case 'post':
+      fetch(API_URL +'/cards/' + cardId + '/tasks/', {
+            method: method,
+            headers: API_HEADERS,
+            body: JSON.stringify(newTask)
+            })
+            .then((response)=> response.json())
+            .then((responseData)=>{
+              newTask.id = responseData.id
+              this.setState({cards: nextState})
+            });
+        break;
+        case 'put':
+        fetch(API_URL +'/cards/' + cardId + '/tasks/'+ taskId , {
+          method: method,
+          headers: API_HEADERS,
+          body: JSON.stringify({done: newDoneValue})
+        });
+
+        break;
+      default:
+
+    }
+  }
+  addTask(cardId, taskName){
+    console.log(cardId + ' ' + taskName);
+
+    let cardIndex = this.state.cards.findIndex((card)=> card.id === cardId);
+
+    let newTask = {id: Date.now(), name: taskName, done: false};
+    console.log(newTask);
+
+    let nextState = update(this.state.cards, {
+                      [cardIndex]:{
+                        tasks: { $push: [newTask]}
+                      }
+                    });
+
+    this.fetchOpcion('post', cardId, taskName, newTask, nextState);
   }
   deleteTask(cardId, taskId, taskIndex){
     console.log(cardId + ' ' + taskId + ' ' + taskIndex );
@@ -85,11 +145,8 @@ class AppContainer extends Component {
                         });
     // set the new state of cards
     this.setState({ cards: nextState });
-    fetch(API_URL +'/cards/' + cardId + '/tasks/'+ taskId , {
-      method: 'delete',
-      headers: API_HEADERS
-    });
-    // fetchOpcion('delete', cardId, taskId, null);
+    // fetch function
+    this.fetchOpcion('delete', cardId, taskId);
 
   }
   toggleTask(cardId, taskId, taskIndex){
@@ -103,7 +160,7 @@ class AppContainer extends Component {
                           [cardIndex]:{
                           tasks: {
                               [taskIndex]:{
-                                done:{ $apply: (done, newDoneValue) =>{
+                                done:{ $apply: (done) =>{
                                     return newDoneValue = !done;
                                 }
                               }
@@ -111,8 +168,11 @@ class AppContainer extends Component {
                           }
                         }
                       });
+    console.log(newDoneValue);
     // set the new state of cards
     this.setState({cards:nextState});
+    // fetch function
+    this.fetchOpcion('put', cardId, taskId, newDoneValue);
 
   }
   componentDidMount(){
@@ -128,7 +188,7 @@ class AppContainer extends Component {
     .catch((error) =>{
       console.trace('Error fetching and parsing data' ,  error);
     });
-
+    window.state = this.state;
   }
   render(){
     return(

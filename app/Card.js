@@ -17,7 +17,7 @@ class Card extends Component {
   }
 
   toggleClass(){
-    return !this.state.showDetails ? "card__title" : "card__title--is-open";
+    return !this.state.showDetails ? 'card__title' : 'card__title--is-open';
   }
 
   render(){
@@ -55,6 +55,6 @@ Card.propTypes = {
   description: PropTypes.string,
   color: PropTypes.string,
   tasks: PropTypes.arrayOf(PropTypes.object),
-  taskCallbacks: PropTypes.object,
+  taskCallbacks: PropTypes.object
 }
 export default Card;
