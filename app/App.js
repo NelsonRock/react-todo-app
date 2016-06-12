@@ -91,6 +91,16 @@ class AppContainer extends Component {
         fetch(API_URL +'/cards/' + cardId + '/tasks/'+ taskId , {
           method: method,
           headers: API_HEADERS
+        })
+        .then((response)=>{
+          console.log(response);
+          if(!response.ok){
+            throw new Error('Server Response is not ok!');
+          }
+        })
+        .catch((error, response)=>{
+          console.log(error, response);
+          this.setState(prevState);
         });
         break;
       case 'post':
@@ -99,10 +109,23 @@ class AppContainer extends Component {
             headers: API_HEADERS,
             body: JSON.stringify(newTask)
             })
-            .then((response)=> response.json())
+            .then((response)=> {
+              console.log(response);
+              if(response.ok){
+                return response.json();
+              }
+              else{
+                throw new Error('Server Response is not ok!')
+              }
+            })
             .then((responseData)=>{
+              console.log(responseData);
               newTask.id = responseData.id
               this.setState({cards: nextState})
+            })
+            .catch((error)=>{
+              console.log(error);
+              this.setState(prevState);
             });
         break;
         case 'put':
@@ -110,8 +133,17 @@ class AppContainer extends Component {
           method: method,
           headers: API_HEADERS,
           body: JSON.stringify({done: newDoneValue})
+        })
+        .then((response)=>{
+          console.log(response);
+          if (!response.ok) {
+            throw new Error('Server Response is not ok');
+          }
+        })
+        .catch((error)=>{
+          console.log(error);
+          this.setState(prevState);
         });
-
         break;
       default:
 
@@ -161,7 +193,8 @@ class AppContainer extends Component {
                           tasks: {
                               [taskIndex]:{
                                 done:{ $apply: (done) =>{
-                                    return newDoneValue = !done;
+                                    newDoneValue = !done;
+                                    return newDoneValue;
                                 }
                               }
                             }
