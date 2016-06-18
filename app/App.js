@@ -93,7 +93,6 @@ class AppContainer extends Component {
           headers: API_HEADERS
         })
         .then((response)=>{
-          console.log(response);
           if(!response.ok){
             throw new Error('Server Response is not ok!');
           }

@@ -1,7 +1,7 @@
 
 module.exports = {
   devtool: 'eval-source-map',
-  entry: ['babel-polyfill',__dirname + '/app/App.js'],
+  entry: ['babel-polyfill',__dirname + '/app/Animation.js'],
   output: {
     path: __dirname + '/public',
     filename: 'bundle.js'
