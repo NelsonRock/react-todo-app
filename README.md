@@ -45,10 +45,16 @@ npm install --save react-addons-update
 npm install --save babel-polyfill //used for features in es6
 ```
 
-2. Animating Components in React
+2. You will find inside module-animation folder: Animating Components in React
     * If you know about cc3 animation like transition, keyframes your ok.
 
 ```
 npm install --save react-addons-css-transition-group
+
+```
+3. In module-animation/snack-module-animation you'll find a example about drag and drop animation with react using package like react-dnd and react-dnd-html5-backend.
+
+```
+npm install --save react-dnd react-dnd-html5-backend
 
 ```
